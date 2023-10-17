@@ -1,6 +1,6 @@
 #include "Bird.h"
 #include <iostream>
-
+#include <fstream>
 using namespace std;
 
 Bird::Bird(){
@@ -65,17 +65,45 @@ void Bird::printInfo () {
 
 void Bird::edit() {
     cout << "\033[93mEnter data for Bird" << endl;
-    cout << "Enter breed (current - " << breed << "): ";
-    getline(cin, breed);
-    cout << "Enter color (current - " << color << "): ";
-    getline(cin, color);
-    cout << "Enter food (current - " << food << "): ";
-    getline(cin, food);
-    cout << "Enter habitat (current - " << habitat << "): ";
-    getline(cin, habitat);
+    if (breed == ""){
+        cout << "Enter breed: ";
+    } else {
+        cout << "Enter breed (current - " << breed << "): ";
+    }
+    cin >> breed;
+    if (color == ""){
+        cout << "Enter color: ";
+    } else {
+        cout << "Enter color (current - " << color << "): ";
+    }
+    cin >> color;
+    if (food == ""){
+        cout << "Enter food: ";
+    } else {
+        cout << "Enter food (current - " << food << "): ";
+    }
+    cin >> food;
+    if (habitat == ""){
+        cout << "Enter habitat: ";
+    } else {
+        cout << "Enter habitat (current - " << habitat << "): ";
+    }
+    cin >> habitat;
     cout << "\033[0m" << endl;
 }
 
 void Bird::save() {
-
+    ofstream file;
+    string file_name = "animals.txt";
+    file.open(file_name, ios::app);
+    if (!file){
+        cout << "\033[91mError while opening file "<< file_name <<" to load data.\033[0m";
+        return;
+    }
+    file << 1 << endl <<
+         breed << endl <<
+         color << endl <<
+         food << endl <<
+         habitat << endl;
+    file.close();
 }
