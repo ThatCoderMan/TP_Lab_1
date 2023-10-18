@@ -17,15 +17,12 @@ Keeper::~Keeper(){
 void Keeper::clear(){
     if (head != nullptr){
         Queue* obj_ptr;
-        while (head->next != nullptr){
+        while (head != nullptr){
             obj_ptr = head;
-            obj_ptr->data->~Animal();
-            delete(obj_ptr);
             head = head->next;
         }
-        head->data->~Animal();
-        delete(head);
     }
+    head = nullptr;
 }
 
 int Keeper::get_len() {return len;}
@@ -83,9 +80,13 @@ void Keeper::remove(int index){
 void Keeper::save(){
     ofstream file;
     string file_name = "animals.txt";
-    file.open(file_name);
-    if (!file){
-        cout << "\033[91mError while opening file "<< file_name <<" to save data.\033[0m";
+    try {
+        file.open(file_name);
+        if (!file) {
+            throw runtime_error("Error while opening file " + file_name + " to save data.");
+        }
+    } catch (const exception& e) {
+        cout << "\033[91m" << e.what() << "\033[0m";
         return;
     }
     file << len << endl;
@@ -104,12 +105,15 @@ void Keeper::load(){
     int input_len;
     int animal_code;
     string input_string;
-    Animal* animals;
     ifstream file;
     string file_name = "animals.txt";
-    file.open(file_name);
-    if (!file){
-        cout << "\033[91mError while opening file "<< file_name <<" to load data.\033[0m";
+    try {
+        file.open(file_name);
+        if (!file) {
+            throw runtime_error("Error while opening file " + file_name + " to save data.");
+        }
+    } catch (const exception& e) {
+        cout << "\033[91m" << e.what() << "\033[0m" << endl;
         return;
     }
     file >> input_len;
@@ -170,4 +174,18 @@ void Keeper::show(){
     }
 }
 
-
+Animal* Keeper::operator[](int index) {
+    if (index >= 0 && index < len && head != nullptr) {
+        Queue *obj_ptr = head;
+        if (index == 0) {
+            obj_ptr->data->edit();
+            return nullptr;
+        }
+        for (int i = 0; i < index; i++) {
+            obj_ptr = obj_ptr->next;
+        }
+        obj_ptr->data->edit();
+    }
+    cout << "\033[93mNo data.\033[0m" << endl;
+    return nullptr;
+}

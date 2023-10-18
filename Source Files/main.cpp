@@ -71,6 +71,7 @@ int main (){
                 break;
         }
     }
+    keeper->~Keeper();
     cout << "Program shutdown by user.";
     return 0;
 }

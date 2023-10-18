@@ -18,6 +18,7 @@ public:
 
     int get_len();
 
+    Animal* operator[](int index);
     void add(Animal* n_data);
     void edit(int index);
     void remove(int index);
