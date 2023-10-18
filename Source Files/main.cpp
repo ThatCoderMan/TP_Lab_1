@@ -6,14 +6,14 @@
 using namespace std;
 
 void menu() {
-    cout << "1. Добавить животное" << endl <<
-    "2. Вывести список животных" << endl <<
-    "3. Удалить животное" << endl <<
-    "4. Редактировать животное" << endl <<
-    "5. Сохранить данные" << endl <<
-    "6. Загрузить данные" << endl <<
-    "0. Выйти" << endl <<
-    "Выберите пункт меню: ";
+    cout << "1. Add an animal" << endl <<
+         "2. Output a list of animals" << endl <<
+         "3. Delete animal" << endl <<
+         "4. Edit animal" << endl <<
+         "5. Save data" << endl <<
+         "6. Upload data" << endl <<
+         "0. Exit" << endl <<
+         "Select the menu item: ";
 }
 
 int main (){
